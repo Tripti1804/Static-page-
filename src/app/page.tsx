@@ -1,13 +1,20 @@
 "use client"
 import { useEffect,useState } from "react";
 
+interface Post {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
+
 export default function StaticPage() {
-  const[product,setProduct]=useState([])
+  const[product,setProduct]=useState<Post[]>([])
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('https://jsonplaceholder.typicode.com/todos');
-        const data: Product[] = await response.json();
+        const data: Post[] = await response.json();
         setProduct(data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -25,25 +32,11 @@ export default function StaticPage() {
         <h3>userId: {item.userId}<br></br>
             Id: {item.id}<br></br>
             title: {item.title}<br></br>
-            completed: {item.completed}<br></br>
+            completed: {item.body}<br></br>
         </h3>
       ))
     }
-    {/* {
-      product.map((item)=>(
-        <h3>Id: {item.id}</h3>
-      ))
-    }
-    {
-      product.map((item)=>(
-        <h3>title: {item.title}</h3>
-      ))
-    }
-    {
-      product.map((item)=>(
-        <h3>completed: {item.completed}</h3>
-      ))
-    } */}
+
     </>
     
   );
